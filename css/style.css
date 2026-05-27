@@ -939,6 +939,13 @@ section {
   color: rgba(250, 247, 242, 0.5);
 }
 
+/* --- Properties teaser CTA --- */
+
+.properties-cta {
+  margin-top: var(--space-lg);
+  text-align: center;
+}
+
 /* --- Animations --- */
 
 @keyframes fade-up {

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Homey Homes & Co.</title>
+<meta name="description" content="Boutique short-term rental management, launch and setup, interior design, and STR-optimized real estate in Chicago.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+/* ==========================================================================
+   Services page additions (services.html only)
+   ========================================================================== */
+
+/* Page hero */
+.services-hero {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--light-gray);
+}
+.services-hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--space-xl);
+  align-items: end;
+}
+.services-hero h1 em {
+  color: var(--forest);
+}
+.services-hero-right { padding-bottom: 0.5rem; }
+.services-hero-rule {
+  width: 72px;
+  height: 1px;
+  background-color: var(--terracotta);
+  margin-bottom: var(--space-md);
+}
+.services-hero .lede {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--warm-gray);
+  max-width: 28rem;
+}
+@media (max-width: 900px) {
+  .services-hero { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
+  .services-hero-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    align-items: start;
+  }
+  .services-hero .lede { font-size: 1.0625rem; }
+}
+
+/* Sticky sub-nav */
+.subnav {
+  background-color: var(--cream);
+  border-bottom: 1px solid var(--light-gray);
+  position: sticky;
+  top: 71px;
+  z-index: 90;
+}
+.subnav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 0 var(--space-md);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.subnav-inner::-webkit-scrollbar { display: none; }
+.subnav-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 1rem 1.25rem 1rem 0;
+  border-right: 1px solid var(--light-gray);
+  margin-right: 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+.subnav a {
+  display: inline-block;
+  padding: 1rem 1.25rem;
+  color: var(--charcoal);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.2s;
+}
+.subnav a::after {
+  content: '';
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.subnav a:hover { color: var(--terracotta); }
+.subnav a:hover::after,
+.subnav a.current::after { transform: scaleX(1); }
+.subnav a.current { color: var(--charcoal); font-weight: 500; }
+
+html { scroll-padding-top: 130px; }
+
+@media (max-width: 900px) {
+  .subnav { top: 65px; }
+  .subnav-inner { justify-content: flex-start; }
+  .subnav-label { padding: 0.875rem 0.875rem 0.875rem 0; font-size: 0.6875rem; }
+  .subnav a { padding: 0.875rem; font-size: 0.875rem; }
+  .subnav a::after { left: 0.875rem; right: 0.875rem; }
+  html { scroll-padding-top: 110px; }
+}
+
+/* Service sections */
+.service-section {
+  padding: var(--space-2xl) 0;
+  border-bottom: 1px solid var(--light-gray);
+}
+.service-section.alt { background-color: var(--cream-dark); }
+.service-section.dark {
+  background-color: var(--forest);
+  color: var(--cream);
+  border-bottom: none;
+}
+.service-section.dark h2,
+.service-section.dark h3 { color: var(--cream); }
+.service-section.dark h2 em { color: #D4B89F; }
+.service-section.dark p { color: rgba(250, 247, 242, 0.85); }
+.service-section.dark .eyebrow,
+.service-section.dark .service-num { color: var(--terracotta); }
+.service-section.dark .feature-list li { color: rgba(250, 247, 242, 0.95); }
+.service-section.dark .feature-list li::before { background-color: var(--terracotta); }
+.service-section.dark .feature-label { color: rgba(250, 247, 242, 0.6); }
+.service-section.dark .excluded li { color: rgba(250, 247, 242, 0.65); }
+.service-section.dark .excluded li::before { color: rgba(250, 247, 242, 0.5); }
+.service-section.dark .price-pill {
+  background-color: rgba(250, 247, 242, 0.08);
+  border-color: rgba(250, 247, 242, 0.2);
+}
+.service-section.dark .price-pill-label {
+  color: rgba(250, 247, 242, 0.6);
+  border-right-color: rgba(250, 247, 242, 0.2);
+}
+.service-section.dark .price-pill-amount { color: var(--cream); }
+.service-section.dark .btn-primary {
+  background-color: var(--terracotta);
+  color: var(--cream);
+}
+.service-section.dark .btn-primary:hover { background-color: #A55840; }
+.service-section.dark .tile-caption { color: rgba(250, 247, 242, 0.6); }
+
+.service-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+.service-grid.reverse { grid-template-columns: 6fr 5fr; }
+.service-grid.reverse .service-content { order: 2; }
+.service-grid.reverse .service-visual { order: 1; }
+
+.service-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.125rem;
+  color: var(--terracotta);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.02em;
+}
+.service-content h2 { margin-bottom: var(--space-md); }
+.service-content h2 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.service-content .lede {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  color: var(--warm-gray);
+  margin-bottom: var(--space-md);
+  max-width: 32rem;
+}
+.service-content > p:not(.lede) {
+  color: var(--warm-gray);
+  margin-bottom: var(--space-md);
+}
+
+/* Feature lists */
+.feature-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warm-gray);
+  margin-bottom: 0.875rem;
+  margin-top: var(--space-md);
+}
+.feature-label:first-of-type { margin-top: var(--space-md); }
+.feature-list { list-style: none; margin: 0 0 var(--space-md); padding: 0; }
+.feature-list li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.625rem;
+  color: var(--charcoal);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.625rem;
+  width: 8px;
+  height: 1px;
+  background-color: var(--terracotta);
+}
+.excluded { list-style: none; margin: 0; }
+.excluded li {
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: 0.625rem;
+  color: var(--warm-gray);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.excluded li::before {
+  content: '×';
+  position: absolute;
+  left: 0;
+  top: -0.0625rem;
+  color: var(--warm-gray);
+  font-size: 1.0625rem;
+}
+
+/* Pricing pill */
+.price-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: var(--space-md) 0;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--white);
+  border: 1px solid var(--light-gray);
+  border-radius: 999px;
+}
+.price-pill-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warm-gray);
+  border-right: 1px solid var(--light-gray);
+  padding-right: 0.875rem;
+  font-weight: 500;
+}
+.price-pill-amount {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  color: var(--charcoal);
+}
+
+/* Visual: single image */
+.service-visual-single {
+  aspect-ratio: 4/5;
+  background-color: var(--cream-dark);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.service-visual-single img { width: 100%; height: 100%; object-fit: cover; }
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--warm-gray);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  background: var(--cream-dark);
+}
+.service-section.dark .image-placeholder {
+  background: #1F2B1E;
+  color: rgba(250, 247, 242, 0.4);
+}
+
+/* Visual: 4-tile grid */
+.service-visual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+.service-visual-grid .tile {
+  aspect-ratio: 4/5;
+  background-color: var(--cream-dark);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.service-visual-grid .tile img { width: 100%; height: 100%; object-fit: cover; }
+.tile-caption {
+  padding: 0.5rem 0.125rem 0;
+  font-size: 0.8125rem;
+  color: var(--warm-gray);
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+  .service-section { padding: var(--space-xl) 0; }
+  .service-grid, .service-grid.reverse {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .service-grid.reverse .service-content { order: 2; }
+  .service-grid.reverse .service-visual { order: 1; }
+  .service-content .lede { font-size: 1.0625rem; }
+  .price-pill {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+    padding: 0.875rem 1.125rem;
+    border-radius: 12px;
+  }
+  .price-pill-label {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+/* FAQ section */
+.faq-section { padding: var(--space-2xl) 0; }
+.faq-header {
+  text-align: center;
+  max-width: 38rem;
+  margin: 0 auto var(--space-xl);
+}
+.faq-header h2 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--forest);
+}
+.faq-list { max-width: 52rem; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--light-gray); }
+.faq-item:first-child { border-top: 1px solid var(--light-gray); }
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.75rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  transition: color 0.2s;
+  letter-spacing: -0.01em;
+}
+.faq-question:hover { color: var(--terracotta); }
+.faq-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background-color: var(--charcoal);
+  transition: opacity 0.2s;
+}
+.faq-icon::before { top: 9px; left: 0; right: 0; height: 1px; }
+.faq-icon::after { left: 9px; top: 0; bottom: 0; width: 1px; }
+.faq-item.open .faq-icon::after { opacity: 0; }
+.faq-item.open .faq-icon { transform: rotate(90deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-answer-inner {
+  padding: 0 0 1.75rem;
+  max-width: 42rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--warm-gray);
+}
+.faq-answer-inner p + p { margin-top: 0.75rem; }
+.faq-cta { text-align: center; margin-top: var(--space-lg); }
+.faq-cta a {
+  color: var(--forest);
+  border-bottom: 1px solid var(--forest);
+  padding-bottom: 2px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.faq-cta a:hover {
+  color: var(--terracotta);
+  border-bottom-color: var(--terracotta);
+}
+@media (max-width: 900px) {
+  .faq-section { padding: var(--space-xl) 0; }
+  .faq-question { font-size: 1.0625rem; padding: 1.375rem 0; gap: 1.25rem; }
+  .faq-answer-inner { font-size: 0.9375rem; }
+}
+
+.inline-cta { margin-top: var(--space-sm); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="/" class="nav-brand">Homey Homes <span>&amp; Co.</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/properties">Properties</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/faq">FAQ</a></li>
+      <li><a href="/resources">Resources</a></li>
+      <li><a href="/contact" class="nav-cta">Get in Touch</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="services-hero">
+  <div class="container">
+    <div class="services-hero-grid">
+      <div>
+        <span class="eyebrow">What I do</span>
+        <h1>Full-service short-term rental management, <em>and everything around it.</em></h1>
+      </div>
+      <div class="services-hero-right">
+        <div class="services-hero-rule"></div>
+        <p class="lede">One operator. Four services. One transparent fee structure. Built around the way I'd want my own property managed, because one of them is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="subnav" id="subnav">
+  <div class="subnav-inner">
+    <span class="subnav-label">Jump to</span>
+    <a href="#management" data-target="management">Management</a>
+    <a href="#launch" data-target="launch">Launch &amp; Setup</a>
+    <a href="#design" data-target="design">Interior Design</a>
+    <a href="#realestate" data-target="realestate">Real Estate</a>
+  </div>
+</div>
+
+<section id="management" class="service-section">
+  <div class="container">
+    <div class="service-grid">
+      <div class="service-content">
+        <div class="service-num">01 / Management</div>
+        <h2>Short-term rental <em>management.</em></h2>
+        <p class="lede">The core of what I do. Full-service management across Airbnb, VRBO, and Booking.com, handled personally and priced transparently.</p>
+
+        <div class="feature-label">What's included</div>
+        <ul class="feature-list">
+          <li>Listing creation and optimization across Airbnb, VRBO, and Booking.com</li>
+          <li>Calendar and pricing strategy, managed personally</li>
+          <li>24/7 guest communications</li>
+          <li>Site visits and guest-issue triage</li>
+          <li>Cleaning coordination</li>
+          <li>Restocking consumables</li>
+          <li>Trusted vendor referrals when something needs fixing, with introductions coordinated</li>
+          <li>Direct access to me by phone, text, or email</li>
+        </ul>
+
+        <div class="feature-label">What's not included</div>
+        <ul class="excluded">
+          <li>Maintenance and repair costs. I'll refer you to vendors I trust and coordinate the intro, but you handle scheduling and pay the vendor directly at cost.</li>
+          <li>STR license fees and city or state taxes</li>
+          <li>Capital improvements</li>
+        </ul>
+
+        <div class="price-pill">
+          <span class="price-pill-label">Pricing</span>
+          <span class="price-pill-amount">20% revenue share + cleaning fee. All-inclusive.</span>
+        </div>
+
+        <div class="inline-cta">
+          <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="service-visual">
+        <div class="service-visual-single">
+          <div class="image-placeholder">[Logan Square graystone living room]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="launch" class="service-section alt">
+  <div class="container">
+    <div class="service-grid reverse">
+      <div class="service-content">
+        <div class="service-num">02 / Launch &amp; Setup</div>
+        <h2>Launch <em>&amp; setup.</em></h2>
+        <p class="lede">New to short-term rentals? I'll take your property from "I think this could work" to live and booking.</p>
+
+        <div class="feature-label">What's included</div>
+        <ul class="feature-list">
+          <li>Chicago STR license advice and application guidance. I walk you through the requirements, advise on the application, and tell you exactly what to submit.</li>
+          <li>Photography coordination</li>
+          <li>Listing copy and platform setup across Airbnb, VRBO, and Booking.com</li>
+          <li>Initial pricing and calendar strategy</li>
+        </ul>
+
+        <div class="price-pill">
+          <span class="price-pill-label">Pricing</span>
+          <span class="price-pill-amount">One-time fee, scoped to the property.</span>
+        </div>
+
+        <div class="inline-cta">
+          <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="service-visual">
+        <div class="service-visual-single">
+          <div class="image-placeholder">[Listing photography or setup shot]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="design" class="service-section dark">
+  <div class="container">
+    <div class="service-grid">
+      <div class="service-content">
+        <div class="service-num">03 / Interior Design</div>
+        <h2>Interior design for STRs, <em>and beyond.</em></h2>
+        <p class="lede">Most rental interiors look like they were furnished by a committee. Random pieces from random catalogs, lit badly, photographed worse. Mine don't.</p>
+        <p>I design spaces that photograph beautifully, hold up to guest use, and earn better reviews. The work isn't limited to STRs or to Chicago.</p>
+
+        <div class="feature-label">What's included</div>
+        <ul class="feature-list">
+          <li>Concept and mood board tailored to the property</li>
+          <li>Furniture sourcing with vendor discounts at major retailers</li>
+          <li>Styling for photography</li>
+          <li>Optional ongoing refresh</li>
+        </ul>
+
+        <div class="price-pill">
+          <span class="price-pill-label">Pricing</span>
+          <span class="price-pill-amount">Scoped to the project. Ask for a quote.</span>
+        </div>
+
+        <div class="inline-cta">
+          <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="service-visual">
+        <div class="service-visual-grid">
+          <div>
+            <div class="tile"><div class="image-placeholder">[Miami kitchen]</div></div>
+            <div class="tile-caption">Kitchen design, Miami</div>
+          </div>
+          <div>
+            <div class="tile"><div class="image-placeholder">[Sage living room]</div></div>
+            <div class="tile-caption">Living room, Chicago</div>
+          </div>
+          <div>
+            <div class="tile"><div class="image-placeholder">[Yellow reading nook]</div></div>
+            <div class="tile-caption">Reading nook, Logan Square</div>
+          </div>
+          <div>
+            <div class="tile"><div class="image-placeholder">[Terrazzo bathroom]</div></div>
+            <div class="tile-caption">Bathroom renovation, Chicago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="realestate" class="service-section">
+  <div class="container">
+    <div class="service-grid reverse">
+      <div class="service-content">
+        <div class="service-num">04 / Real Estate</div>
+        <h2>STR-optimized <em>real estate.</em></h2>
+        <p class="lede">I'm a licensed Chicago realtor with a Goldman Sachs real estate investing background. If your property and your short-term rental goals are connected, I can handle both sides.</p>
+
+        <div class="feature-label">What I help with</div>
+        <ul class="feature-list">
+          <li>Buy-side representation, with a focus on STR-optimized properties</li>
+          <li>Revenue modeling on candidate properties so you know what it could realistically earn</li>
+          <li>Neighborhood and STR-license viability analysis</li>
+          <li>Sell-side representation. I know how to market a short-term rental to investors.</li>
+          <li>Long-term leasing on MLS if you want to switch from STR to long-term</li>
+        </ul>
+
+        <div class="inline-cta">
+          <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
+        </div>
+      </div>
+
+      <div class="service-visual">
+        <div class="service-visual-single">
+          <div class="image-placeholder">[Chicago property exterior or interior]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-header">
+      <span class="eyebrow">Common questions</span>
+      <h2>The questions <em>I get most.</em></h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>How is your 20% fee different from the "10-15%" rates I see advertised by other managers?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>The advertised number isn't the real number. Large property management companies quote a low base rate, then bill separately for site visits ($50-100 each), consumables restocking with markup, vendor coordination fees, and a long list of extras that add up fast. My 20% is everything: site visits, restocking, guest communications, calendar and pricing management, and trusted vendor referrals when you need them. There are no surprise line items on your monthly statement because there are no extras to add.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>What's actually included, and what costs extra?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Included: 24/7 guest support, site visits and guest-issue triage, consumables restocking, calendar and pricing strategy, listing optimization across all platforms, and trusted vendor referrals when something needs fixing.</p>
+            <p>Not included: I don't carry the cost of maintenance or repairs. When something needs work, I'll refer you to vendors I've worked with and trust, and coordinate the introduction. Scheduling and payment happen directly between you and the vendor. That's intentional. You stay in control of the spending, and there's no markup from me on top.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>How long does it take to get a property listed and earning?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>It depends on where you're starting. If the property is already furnished and you just need licensing and a listing, photography and listing setup can be done in a few days. The Chicago STR license takes about a week to process. If you're starting from an empty unit, furnishing and styling is the biggest variable. That can take a few weeks to a couple of months depending on scope.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Am I locked into a contract?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>No long-term lock-in. You can cancel at any time. The contract exists to set clear expectations about what's my responsibility and what's yours, not to trap you in a relationship. If it's not working, we have an honest conversation and unwind cleanly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          <span>Can I still use my own property when I want to?</span>
+          <span class="faq-icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Of course. It's your property. You can block dates yourself in the calendar, or just let me know and I'll handle it. Whether it's a weekend visit, an extended stay, or hosting family for the holidays, owner usage is built into how we manage the calendar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-cta">
+      <a href="/faq">See all FAQs →</a>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="container-narrow">
+    <span class="eyebrow">Ready to talk?</span>
+    <h2>Let's see what your property <em>could earn.</em></h2>
+    <p>Tell me about your space and I'll be in touch to walk through it together.</p>
+    <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Homey Homes <span>&amp; Co.</span></h3>
+        <p>Boutique Chicago short-term rental management. Owner-operated, design-forward, all-inclusive.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services#management">STR Management</a></li>
+          <li><a href="/services#launch">Launch &amp; Setup</a></li>
+          <li><a href="/services#design">Interior Design</a></li>
+          <li><a href="/services#realestate">Real Estate</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+          <li><a href="/properties">Properties</a></li>
+          <li><a href="/faq">FAQ</a></li>
+          <li><a href="/resources">Resources</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:deold03@gmail.com">Email</a></li>
+          <li><a href="tel:7327137337">732-713-7337</a></li>
+          <li><a href="https://www.instagram.com/homeyhomes.co/">Instagram</a></li>
+          <li>Chicago, IL</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Homey Homes &amp; Co.</div>
+      <div>
+        <a href="/privacy" style="margin-right: 1.5rem;">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+    if (isOpen) {
+      answer.style.maxHeight = '0';
+      item.classList.remove('open');
+    } else {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  const sections = ['management', 'launch', 'design', 'realestate'];
+  const observerOptions = { rootMargin: '-30% 0px -60% 0px', threshold: 0 };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.subnav a').forEach(a => a.classList.remove('current'));
+        const link = document.querySelector(`.subnav a[data-target="${entry.target.id}"]`);
+        if (link) link.classList.add('current');
+      }
+    });
+  }, observerOptions);
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
