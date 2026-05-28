@@ -426,6 +426,118 @@ html { scroll-padding-top: 130px; }
 }
 
 .inline-cta { margin-top: var(--space-sm); }
+
+/* ── Management: benefits strip ─────────────────────────────── */
+.mgmt-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: var(--space-lg) 0 var(--space-xl);
+}
+.mgmt-benefit {
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid var(--light-gray);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.mgmt-benefit:last-child { border-right: none; }
+.mgmt-benefit-title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.25;
+}
+.mgmt-benefit-desc {
+  font-size: 0.8125rem;
+  color: var(--warm-gray);
+  line-height: 1.55;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .mgmt-benefits { grid-template-columns: 1fr 1fr; }
+  .mgmt-benefit:nth-child(2) { border-right: none; }
+  .mgmt-benefit:nth-child(3),
+  .mgmt-benefit:nth-child(4) { border-top: 1px solid var(--light-gray); }
+}
+@media (max-width: 500px) {
+  .mgmt-benefits { grid-template-columns: 1fr; }
+  .mgmt-benefit { border-right: none; border-top: 1px solid var(--light-gray); }
+  .mgmt-benefit:first-child { border-top: none; }
+}
+
+/* ── Management: service cards grid ─────────────────────────── */
+.mgmt-cards-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warm-gray);
+  margin-bottom: var(--space-md);
+}
+.mgmt-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: var(--space-lg);
+}
+.mgmt-card {
+  padding: 1.375rem 1.5rem 1.5rem;
+  border-right: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--light-gray);
+}
+.mgmt-card:nth-child(even) { border-right: none; }
+.mgmt-card:nth-last-child(-n+2) { border-bottom: none; }
+.mgmt-card-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.75rem;
+  color: var(--terracotta);
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+.mgmt-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.mgmt-card p {
+  font-size: 0.875rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .mgmt-cards { grid-template-columns: 1fr; }
+  .mgmt-card { border-right: none; }
+  .mgmt-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--light-gray); }
+  .mgmt-card:last-child { border-bottom: none; }
+}
+
+/* ── Management: bottom row (not-included + pricing) ─────────── */
+.mgmt-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+@media (max-width: 700px) {
+  .mgmt-bottom-row { grid-template-columns: 1fr; }
+}
+
+/* Reuse management section without side-by-side grid */
+#management .service-content { max-width: 100%; }
 </style>
 </head>
 <body>
@@ -474,44 +586,92 @@ html { scroll-padding-top: 130px; }
 
 <section id="management" class="service-section">
   <div class="container">
-    <div class="service-grid">
-      <div class="service-content">
-        <div class="service-num">01 / Management</div>
-        <h2>Short-term rental <em>management.</em></h2>
-        <p class="lede">The core of what I do. Full-service management across Airbnb, VRBO, and Booking.com, handled personally and priced transparently.</p>
+    <div class="service-num">01 / Management</div>
+    <h2>Short-term rental <em>management.</em></h2>
+    <p class="lede" style="max-width: 44rem;">The core of what I do. Full-service management across Airbnb, VRBO, and Booking.com — handled personally, priced transparently. I keep my portfolio small intentionally, so every property gets real attention and every guest feels the difference.</p>
 
-        <div class="feature-label">What's included</div>
-        <ul class="feature-list">
-          <li>Listing creation and optimization across Airbnb, VRBO, and Booking.com</li>
-          <li>Calendar and pricing strategy, managed personally</li>
-          <li>24/7 guest communications</li>
-          <li>Site visits and guest-issue triage</li>
-          <li>Cleaning coordination</li>
-          <li>Restocking consumables</li>
-          <li>Trusted vendor referrals when something needs fixing, with introductions coordinated</li>
-          <li>Direct access to me by phone, text, or email</li>
-        </ul>
+    <!-- Benefits strip -->
+    <div class="mgmt-benefits">
+      <div class="mgmt-benefit">
+        <div class="mgmt-benefit-title">Higher occupancy</div>
+        <p class="mgmt-benefit-desc">Multi-platform presence and optimized listings keep your calendar full year-round — not just on weekends.</p>
+      </div>
+      <div class="mgmt-benefit">
+        <div class="mgmt-benefit-title">Optimized revenue</div>
+        <p class="mgmt-benefit-desc">Pricing adjusted to Chicago events, seasons, and local demand. You won't leave money on the table during a Lolla weekend.</p>
+      </div>
+      <div class="mgmt-benefit">
+        <div class="mgmt-benefit-title">5-star guest experience</div>
+        <p class="mgmt-benefit-desc">Guests notice when the person managing their stay actually cares. Better reviews, more bookings, higher rates over time.</p>
+      </div>
+      <div class="mgmt-benefit">
+        <div class="mgmt-benefit-title">Your time back</div>
+        <p class="mgmt-benefit-desc">From first inquiry to post-checkout, I handle it. You stop thinking about it. That's the point.</p>
+      </div>
+    </div>
 
-        <div class="feature-label">What's not included</div>
+    <!-- Service cards -->
+    <p class="mgmt-cards-label">What's included</p>
+    <div class="mgmt-cards">
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">01</div>
+        <h3>Listing creation &amp; optimization</h3>
+        <p>Platform-specific listings written to convert — titles, descriptions, and amenity details dialed in for Airbnb, VRBO, and Booking.com. Updated regularly, not set and abandoned.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">02</div>
+        <h3>Dynamic pricing strategy</h3>
+        <p>I watch the Chicago market personally and adjust rates around events, seasonality, and neighborhood demand. No black-box algorithm. No surprises when Pitchfork weekend hits.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">03</div>
+        <h3>Guest communication</h3>
+        <p>24/7 messaging from inquiry to checkout. Guests get fast, warm, genuinely helpful responses — not templated auto-replies. It shows in the reviews.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">04</div>
+        <h3>Cleaning &amp; restocking coordination</h3>
+        <p>Turnover scheduling managed around every booking. Consumables restocked. Standards verified. A clean, well-stocked property is the foundation of every 5-star review.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">05</div>
+        <h3>Check-in &amp; check-out management</h3>
+        <p>Seamless arrivals and departures. Clear instructions, keyless access coordination, and a post-checkout walkthrough so issues are caught before the next guest arrives.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">06</div>
+        <h3>Property maintenance &amp; vendor coordination</h3>
+        <p>I flag issues early and connect you to vendors I trust. You schedule and pay directly — no markup from me. Small problems get addressed before they become bad reviews.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">07</div>
+        <h3>Site visits &amp; guest-issue triage</h3>
+        <p>When something needs eyes on it, I go. You get someone who actually knows your space — not a call center dispatching a stranger to your property.</p>
+      </div>
+      <div class="mgmt-card">
+        <div class="mgmt-card-num">08</div>
+        <h3>Performance reporting</h3>
+        <p>Monthly reporting on revenue, occupancy, and bookings — straightforward, not buried in a dashboard. You'll always know how your property is performing and why.</p>
+      </div>
+    </div>
+
+    <!-- Not included + pricing -->
+    <div class="mgmt-bottom-row">
+      <div>
+        <div class="feature-label" style="margin-top: 0;">What's not included</div>
         <ul class="excluded">
           <li>Maintenance and repair costs. I'll refer you to vendors I trust and coordinate the intro, but you handle scheduling and pay the vendor directly at cost.</li>
           <li>STR license fees and city or state taxes</li>
           <li>Capital improvements</li>
         </ul>
-
+      </div>
+      <div>
         <div class="price-pill">
           <span class="price-pill-label">Pricing</span>
           <span class="price-pill-amount">20% revenue share + cleaning fee. All-inclusive.</span>
         </div>
-
         <div class="inline-cta">
           <a href="/contact" class="btn btn-primary">Get in Touch <span class="btn-arrow"></span></a>
-        </div>
-      </div>
-
-      <div class="service-visual">
-        <div class="service-visual-single">
-          <div class="image-placeholder">[Logan Square graystone living room]</div>
         </div>
       </div>
     </div>
