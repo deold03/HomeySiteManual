@@ -19,40 +19,50 @@
 
 /* Page hero */
 .services-hero {
-  padding-top: var(--space-xl);
-  padding-bottom: var(--space-xl);
-  border-bottom: 1px solid var(--light-gray);
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
-.services-hero-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: var(--space-xl);
-  align-items: end;
+.services-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
 }
-.services-hero h1 em {
-  color: var(--forest);
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(31,31,29,0.75) 0%,
+    rgba(31,31,29,0.55) 55%,
+    rgba(31,31,29,0.2) 100%
+  );
 }
-.services-hero-right { padding-bottom: 0.5rem; }
-.services-hero-rule {
-  width: 72px;
-  height: 1px;
-  background-color: var(--terracotta);
-  margin-bottom: var(--space-md);
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-2xl) 0 var(--space-xl);
 }
+.services-hero .eyebrow { color: var(--terracotta); }
+.services-hero h1 { color: var(--cream); max-width: 28rem; }
+.services-hero h1 em { color: var(--cream); opacity: 0.85; }
 .services-hero .lede {
-  font-size: 1.1875rem;
+  font-size: 1.0625rem;
   line-height: 1.55;
-  color: var(--warm-gray);
-  max-width: 28rem;
+  color: rgba(250,247,242,0.72);
+  max-width: 26rem;
+  margin-top: var(--space-md);
 }
 @media (max-width: 900px) {
-  .services-hero { padding-top: var(--space-lg); padding-bottom: var(--space-lg); }
-  .services-hero-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-md);
-    align-items: start;
-  }
-  .services-hero .lede { font-size: 1.0625rem; }
+  .services-hero { min-height: 340px; }
+  .services-hero-content { padding: var(--space-xl) 0 var(--space-lg); }
+  .services-hero h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); }
 }
 
 /* Sticky sub-nav */
@@ -560,16 +570,13 @@ html { scroll-padding-top: 130px; }
 </header>
 
 <section class="services-hero">
-  <div class="container">
-    <div class="services-hero-grid">
-      <div>
-        <span class="eyebrow">What I do</span>
-        <h1>Full-service short-term rental management, <em>and everything around it.</em></h1>
-      </div>
-      <div class="services-hero-right">
-        <div class="services-hero-rule"></div>
-        <p class="lede">One operator. Four services. One transparent fee structure. Built around the way I'd want my own property managed, because one of them is.</p>
-      </div>
+  <img class="services-hero-bg" src="images/services-hero-bg.jpg" alt="Outdoor dining table set for guests, terracotta wall behind">
+  <div class="services-hero-overlay"></div>
+  <div class="services-hero-content">
+    <div class="container">
+      <span class="eyebrow">What I do</span>
+      <h1>Full-service short-term rental management, <em>and everything around it.</em></h1>
+      <p class="lede">One operator. Four services. One transparent fee structure. Built around the way I'd want my own property managed, because one of them is.</p>
     </div>
   </div>
 </section>
